@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Este sotfware foi feito para a UTFPR - Campus Curitiba;
+ * O Código é livre para uso não comercial;
+ * Desenvolvido através do Netbeans IDE.
  */
 package com.marlonprudente.rest;
 
@@ -30,6 +30,9 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(com.marlonprudente.rest.HelloworldResource.class);
+        resources.add(com.marlonprudente.rest.HospedagensResource.class);
+        resources.add(com.marlonprudente.rest.PacotesResource.class);
+        resources.add(com.marlonprudente.rest.PassagensResource.class);
     }
     
 }

@@ -5,6 +5,9 @@
  */
 package com.marlonprudente.rest;
 
+import com.google.gson.Gson;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -13,42 +16,47 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
+import com.marlonprudente.database.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  * REST Web Service
  *
  * @author Marlon Prudente <marlon.oliveira at alunos.utfpr.edu.br>
  */
-@Path("helloworld")
-public class HelloworldResource {
-    private String texto = "";
+@Path("Passagens")
+public class PassagensResource {
+
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of HelloworldResource
+     * Creates a new instance of PassagensResource
      */
-    public HelloworldResource() {
+    public PassagensResource() {
+        
     }
-
     /**
-     * Retrieves representation of an instance of com.marlonprudente.rest.HelloworldResource
+     * Retrieves representation of an list of instance of com.marlonprudente.rest.PassagensResource
      * @return an instance of java.lang.String
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        return "Hello World! -> " + texto;
+    public String getPassagens(){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("restful");
+        EntityManager em = emf.createEntityManager();
+        Gson gson = new Gson();
+        return gson.toJson(em.createQuery("SELECT p FROM Passagens p", Passagens.class).getResultList());        
     }
 
     /**
-     * PUT method for updating or creating an instance of HelloworldResource
+     * PUT method for updating or creating an instance of PassagensResource
      * @param content representation for the resource
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void putJson(String content) {
-        this.texto = content;
     }
 }
