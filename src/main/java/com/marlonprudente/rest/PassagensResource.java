@@ -20,6 +20,8 @@ import com.marlonprudente.database.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.ws.rs.POST;
+import javax.ws.rs.PathParam;
 
 /**
  * REST Web Service
@@ -50,6 +52,13 @@ public class PassagensResource {
         Gson gson = new Gson();
         return gson.toJson(em.createQuery("SELECT p FROM Passagens p", Passagens.class).getResultList());        
     }
+    @POST
+    @Path("/Passagens/{id}/{quantidade}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void comprarPassagem(@PathParam("id") Integer passagemId,@PathParam("quantidade") Integer quantidadeAcentos){
+        
+    }
+    
 
     /**
      * PUT method for updating or creating an instance of PassagensResource
