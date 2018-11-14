@@ -40,11 +40,22 @@ public class PassagensResource {
     public PassagensResource() {
         
     }
+        /**
+     * Retrieves representation of an instance of com.marlonprudente.rest.HelloworldResource
+     * @return an instance of java.lang.String
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJson() {
+        //TODO return proper representation object
+        return "Hello World!";
+    }
     /**
      * Retrieves representation of an list of instance of com.marlonprudente.rest.PassagensResource
      * @return an instance of java.lang.String
      */
     @GET
+    @Path("/todas")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPassagens(){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("restful");
@@ -52,20 +63,34 @@ public class PassagensResource {
         Gson gson = new Gson();
         return gson.toJson(em.createQuery("SELECT p FROM Passagens p", Passagens.class).getResultList());        
     }
-    @POST
-    @Path("/Passagens/{id}/{quantidade}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void comprarPassagem(@PathParam("id") Integer passagemId,@PathParam("quantidade") Integer quantidadeAcentos){
-        
-    }
     
-
-    /**
-     * PUT method for updating or creating an instance of PassagensResource
-     * @param content representation for the resource
-     */
     @PUT
+    @Path("/{id}/{quantidade}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public String comprarPassagem(@PathParam("id") Integer id, @PathParam("quantidade") Integer quantidade){
+        String resultado = "";
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("restful");
+        EntityManager em = emf.createEntityManager();
+        Passagens passagem = em.createQuery("SELECT p FROM Passagens p WHERE p.id = " + id, Passagens.class).getSingleResult();
+        Gson gson = new Gson();
+        
+        if(passagem == null){
+            resultado = "Não há passagens com o id solicitado.";
+            return gson.toJson(resultado);
+        }
+        if(passagem.getPoltronas() >= quantidade){
+            em.getTransaction().begin();
+            passagem.setPoltronas(passagem.getPoltronas() - quantidade);
+            em.persist(passagem);
+            em.getTransaction().commit();
+            em.close();
+            emf.close();
+            resultado = "Passagem comprada com sucesso.";
+        }else{
+            resultado = "Esta passagem não está mais disponível para a quantidade solicitada.";
+        }      
+
+        return gson.toJson(resultado);
     }
 }
