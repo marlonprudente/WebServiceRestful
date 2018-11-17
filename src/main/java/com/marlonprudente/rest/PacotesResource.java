@@ -63,7 +63,7 @@ public class PacotesResource {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("restful");
         EntityManager em = emf.createEntityManager();
         Gson gson = new Gson();
-        return gson.toJson(em.createQuery("SELECT p FROM Pacotes p", Pacotes.class).getResultList());        
+        return "{\"pacotes\": "  + gson.toJson(em.createQuery("SELECT p FROM Pacotes p", Pacotes.class).getResultList()) + "}";        
     }
     
     @PUT

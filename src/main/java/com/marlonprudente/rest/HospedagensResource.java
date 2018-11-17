@@ -50,7 +50,7 @@ public class HospedagensResource {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("restful");
         EntityManager em = emf.createEntityManager();
         Gson gson = new Gson();
-        return gson.toJson(em.createQuery("SELECT h FROM Hoteis h", Hoteis.class).getResultList()); 
+        return "{\"hospedagens\": " + gson.toJson(em.createQuery("SELECT h FROM Hoteis h", Hoteis.class).getResultList()) + "}"; 
     }
 
     /**

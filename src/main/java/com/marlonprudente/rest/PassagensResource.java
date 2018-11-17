@@ -61,7 +61,7 @@ public class PassagensResource {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("restful");
         EntityManager em = emf.createEntityManager();
         Gson gson = new Gson();
-        return gson.toJson(em.createQuery("SELECT p FROM Passagens p", Passagens.class).getResultList());        
+        return "{\"passagens\": " + gson.toJson(em.createQuery("SELECT p FROM Passagens p", Passagens.class).getResultList()) + "}";        
     }
     
     @PUT
