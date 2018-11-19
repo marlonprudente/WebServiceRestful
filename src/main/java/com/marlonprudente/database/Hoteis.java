@@ -6,6 +6,7 @@
 package com.marlonprudente.database;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -39,6 +40,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Hoteis.findByQuantidadequartos", query = "SELECT h FROM Hoteis h WHERE h.quantidadequartos = :quantidadequartos")
     , @NamedQuery(name = "Hoteis.findByNumeromaxpessoas", query = "SELECT h FROM Hoteis h WHERE h.numeromaxpessoas = :numeromaxpessoas")})
 public class Hoteis implements Serializable {
+
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "VALOR")
+    private BigDecimal valor;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -171,6 +176,14 @@ public class Hoteis implements Serializable {
     @Override
     public String toString() {
         return "com.marlonprudente.database.Hoteis[ id=" + id + " ]";
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
     }
     
 }

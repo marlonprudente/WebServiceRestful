@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2018-11-11 21:24:36
+Date: 2018-11-19 07:47:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,12 +27,14 @@ CREATE TABLE `hoteis` (
   `DATASAIDA` date NOT NULL,
   `QUANTIDADEQUARTOS` int(11) NOT NULL,
   `NUMEROMAXPESSOAS` int(11) NOT NULL,
+  `VALOR` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of hoteis
 -- ----------------------------
+INSERT INTO `hoteis` VALUES ('1', 'SP', 'MAEJOANA', '2018-11-14', '2018-11-17', '5', '8', '100.00');
 
 -- ----------------------------
 -- Table structure for `pacotes`
@@ -45,11 +47,12 @@ CREATE TABLE `pacotes` (
   `Valor` decimal(10,0) NOT NULL,
   `QantidadePessoas` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of pacotes
 -- ----------------------------
+INSERT INTO `pacotes` VALUES ('1', '1', '1', '100', '0');
 
 -- ----------------------------
 -- Table structure for `passagens`
@@ -68,5 +71,5 @@ CREATE TABLE `passagens` (
 -- ----------------------------
 -- Records of passagens
 -- ----------------------------
-INSERT INTO `passagens` VALUES ('1', 'CWB', 'SP', '1000', '10', '2018-11-13');
-INSERT INTO `passagens` VALUES ('2', 'SP', 'CWB', '1000', '40', '2018-11-14');
+INSERT INTO `passagens` VALUES ('1', 'CWB', 'SP', '1000', '6', '2018-11-13');
+INSERT INTO `passagens` VALUES ('2', 'SP', 'CWB', '1000', '30', '2018-11-14');
