@@ -41,7 +41,7 @@ public class HospedagensResource {
 
     /**
      * Retrieves representation of an instance of com.marlonprudente.rest.HospedagemResource
-     * @return an instance of java.lang.String
+     * @return passagens no banco de dados
      */
     @GET
     @Path("/todas")
@@ -55,8 +55,9 @@ public class HospedagensResource {
 
     /**
      * PUT method for updating or creating an instance of HospedagemResource
-     * @param id
-     * @param content representation for the resource
+     * @param id id do hotel
+     * @param quantidade quantidade de quartos
+     * @return retorna o resultado da operação para o cliente
      */
     @PUT
     @Path("/{id}/{quantidade}")

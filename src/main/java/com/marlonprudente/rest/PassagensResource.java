@@ -20,7 +20,6 @@ import com.marlonprudente.database.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
 
 /**
@@ -63,7 +62,12 @@ public class PassagensResource {
         Gson gson = new Gson();
         return "{\"passagens\": " + gson.toJson(em.createQuery("SELECT p FROM Passagens p", Passagens.class).getResultList()) + "}";        
     }
-    
+    /**
+     * Metodo de compra de passagens
+     * @param id identificação da passagem
+     * @param quantidade numero de poltronas
+     * @return  resultado da operacao para o cliente
+     */
     @PUT
     @Path("/{id}/{quantidade}")
     @Consumes(MediaType.APPLICATION_JSON)

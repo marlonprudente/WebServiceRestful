@@ -7,8 +7,6 @@ package com.marlonprudente.rest;
 
 import com.google.gson.Gson;
 import com.marlonprudente.database.Pacotes;
-import com.marlonprudente.database.Passagens;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -54,7 +52,7 @@ public class PacotesResource {
 
     /**
      * Retrieves representation of an list of instance of com.marlonprudente.rest.PassagensResource
-     * @return an instance of java.lang.String
+     * @return Pacotes cadastrados no banco de dados
      */
     @GET
     @Path("/todas")
@@ -65,7 +63,11 @@ public class PacotesResource {
         Gson gson = new Gson();
         return "{\"pacotes\": "  + gson.toJson(em.createQuery("SELECT p FROM Pacotes p", Pacotes.class).getResultList()) + "}";        
     }
-    
+    /**
+     * Metodo de compra do pacote
+     * @param id identificação do do pacote
+     * @return resultado da operacao para o cliente
+     */
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
